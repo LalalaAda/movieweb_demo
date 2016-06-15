@@ -1,0 +1,9 @@
+#1 Node.js里面怎么设置process.env.PORT的值
+	1.linux环境下：$PORT=1234 node app.js
+		使用上面的命令需要每次都设置，若想设置一次永久生效可以
+		$export PORT=1234
+		$node app.js
+	2.widows环境下：
+		set PORT=1234
+		node app.js
+-----------------------------------------------------------------
