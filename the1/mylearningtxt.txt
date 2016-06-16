@@ -7,3 +7,23 @@
 		set PORT=1234
 		node app.js
 -----------------------------------------------------------------
+#2 这个项目用到的库
+	node install express jade moment mogoose
+	node install bower -g
+	bower install bootstrap
+		jade改名为pug  文件后缀名改为pug即可
+		使用pug时 img(src="#{item.poster}")即#{}被""括起的时候识别
+		为字符串#{}而不是值，所以更改为jade继续项目
+-----------------------------------------------------------------
+#3 一些改动的地方
+	新版express4中，要独立安装static, npm install serve-static --save
+	在app.js中， var serveStatic = require('serve-static')
+				app.use(serveStatic('../bower_components'))
+				因为bower_components文件夹在应用目录外所以这样设置
+	bodyParser已经不再与Express捆绑，需要独立安装
+	npm install body-parser
+	在代码中修改:	var bodyParser = require('body-parser')
+					app.use(bodyParser.urlencoded({extended:true}))
+-----------------------------------------------------------------
+
+
