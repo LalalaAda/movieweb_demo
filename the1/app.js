@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 //app.use(express.static(path.join(__dirname, 'bower_components')))
 //console.log(path.join(__dirname,'bower_components'))
 //console.log(__dirname)
-app.use(serveStatic('../public'))
+app.use(serveStatic('public'))//取决于你是怎么启动app.js的若在movieweb/下通过the1/app.js启动则是这样
 app.locals.moment = require('moment')
 app.listen(port)
 console.log('server started on port ' + port)
