@@ -1,0 +1,22 @@
+{
+  "name": "movieweb",
+  "description": "",
+  "main": "gruntfile.js",
+  "authors": [
+    "awhitetail <100tuy@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/LalalaAda/movieweb_demo",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
