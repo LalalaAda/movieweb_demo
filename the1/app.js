@@ -10,7 +10,7 @@ var app = express()
 
 mongoose.connect('mongodb://localhost/movieweb')
 
-app.set('views', './views/pages')
+app.set('views', 'the1/views/pages')
 app.set('view engine', 'jade')
 //app.use(express.bodyParser())
 app.use(bodyParser.urlencoded({extended:true}))

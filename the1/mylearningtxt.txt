@@ -1,4 +1,4 @@
-#1 Node.js里面怎么设置process.env.PORT的值
+﻿#1 Node.js里面怎么设置process.env.PORT的值
 	1.linux环境下：$PORT=1234 node app.js
 		使用上面的命令需要每次都设置，若想设置一次永久生效可以
 		$export PORT=1234
@@ -34,3 +34,26 @@
 }
 	主要是将静态资源归为一个文件夹 统一管理
 ------------------------------------------------------------------
+#6 安装grunt
+	开始建站第二期视频
+	npm install grunt -g
+	npm install grunt-cli -g
+	然后在项目文件夹中安装（这个是在movieweb/）
+	npm install grunt
+	npm install grunt-contrib-watch --save-dev
+	npm install grunt-nodemon --save-dev
+	npm install grunt-concurrent --save-dev
+	编写gruntfile.js
+	与视频当中不一样的是在nodemon 这个中要写
+	dev: {
+				script: 'the1/app.js',
+				options: {
+					file: 'the1/app.js',
+	//要写上script： 'the1/app.js',  有逗号哦，不然会报错
+	SyntaxError: Unexpected identifier
+	注意 这个一般代表语法错误 也就是少了逗号之类的 嘿嘿就是上面的
+
+	mongodb的启动(本人电脑上)
+	cd c:\MyProgram\MongoDB\SERVER\bin
+	mongod.exe --dbpath c:\dbdata\db
+-------------------------------------------------------------------
