@@ -1,21 +1,36 @@
 var express = require('express')
+var session = require('express-session')
+var cookieParser = require('cookie-parser')
 var serveStatic = require('serve-static')
 var bodyParser = require('body-parser')
 var path = require('path')
 var mongoose = require('mongoose')
+var mongoStore = require('connect-mongo')(session)
 var _ = require('underscore')
 var Movie = require('./models/movie')
 var User = require('./models/user')
 var port = process.env.PORT || 3000
 var app = express()
+var dburl = 'mongodb://localhost/movieweb'
 
-mongoose.connect('mongodb://localhost/movieweb')
+mongoose.connect(dburl)
 
 app.set('views', 'the1/views/pages')
 app.set('view engine', 'jade')
 //app.use(express.bodyParser())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
+
+app.use(cookieParser())
+app.use(session({
+	secret: 'okok',
+	resave: true,
+  	saveUninitialized: true,
+	store: new mongoStore({
+		url: dburl,
+		collection: 'sessions'
+	})
+}))
 
 //app.use(express.static(path.join(__dirname, 'bower_components')))
 //console.log(path.join(__dirname,'bower_components'))
@@ -27,6 +42,8 @@ console.log('server started on port ' + port)
 
 //index page
 app.get('/', function(req, res){
+	console.log("login session:")
+	console.log(req.session.user)
 	Movie.fetch(function(err, movies){
 		if(err){console.log(err)}
 		res.render('index', {
@@ -87,7 +104,7 @@ app.post('/user/signin', function(req, res){
 		user.comparePassword(password, function(err, isMatch){
 			if (err) { console.log(err) }
 			if (isMatch) {
-				console.log('password is matched')
+				req.session.user = user
 				return res.redirect('/')
 			}
 			else {

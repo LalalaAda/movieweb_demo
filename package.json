@@ -4,19 +4,22 @@
   "description": "",
   "main": "gruntfile.js",
   "dependencies": {
+    "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.1",
+    "connect-mongo": "^1.2.1",
     "express": "^4.13.4",
     "grunt": "^1.0.1",
     "grunt-concurrent": "^2.3.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-nodemon": "^0.4.2",
-	"bcryptjs": "^2.3.0",
+    "jade": "^1.11.0",
     "moment": "^2.13.0",
     "mongoose": "^4.5.0",
-    "jade": "^1.11.0",
+    "pug": "^2.0.0-beta3",
     "serve-static": "^1.11.1",
     "underscore": "^1.8.3",
-    "pug": "^2.0.0-beta3"
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.13.0"
   },
   "devDependencies": {},
   "scripts": {

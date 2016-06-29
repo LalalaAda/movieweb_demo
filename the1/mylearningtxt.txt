@@ -87,3 +87,20 @@
 
 	2.mongoose.model(‘User’, UserSchema, “your collection name”);
 -------------------------------------------------------------------
+#10 cookie session需要安装组件  express 4.x 不集成
+	npm install express-session
+	npm install cookie-parser
+
+	var session = require('express-session')
+	var cookieParser =require('cookie-parser')
+	var mongoStore = require('connect-mongo')(session)
+	app.use(cookieParser())
+	app.use(session({
+		secret: 'okok',
+		resave: true,
+		saveUninitialized: true,
+		store: new mongoStore({
+			url: dburl,
+			collection: 'sessions'
+		})
+	}))
