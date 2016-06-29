@@ -66,3 +66,24 @@
 	解决办法一：User.findOne()
 	二：if(user)====> if(user.length)
 -------------------------------------------------------------------
+#9 使用mongoose过程中遇到的疑惑
+	在运行项目过程中，一直很好奇新注册的用户是如何插入mongodb数据库中的。
+	查看源码发现原来是通过mongoose来与mongodb进行操作的。而mongoose是通
+	过model来创建mongodb中对应的collection的，这样你通过如下的代码：
+	mongoose.model('User', UserSchema);
+	在相应的数据库中创建一个collection时，第一反应肯定会推断在对应的数据
+	库中会建立一个‘User’的collection，但是事实却与推断完全不一样，这也
+	是一直困扰我两的问题，我通过在mongodb的命令行中试图去寻找我刚新建的
+	collection，代码如下：
+	use node_club show collections //只能看到有一个名为users的col
+	-lection，而没有User的collection
+	由此我们可以推断mongoose在内部创建collection时将我们传递的
+	collection名小写化，同时如果小写化的名称后面没有字母——s,则会在其后面
+	添加一s,针对我们刚建的collection,则会命名为：users
+解决办法（两种)：
+	1.xxschema = new Schema({
+			…
+		}, {collection: “your collection name”});
+
+	2.mongoose.model(‘User’, UserSchema, “your collection name”);
+-------------------------------------------------------------------

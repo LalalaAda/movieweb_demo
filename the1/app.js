@@ -63,16 +63,40 @@ app.post('/user/signup', function(req, res){
 //userlist page
 app.get('/admin/userlist', function(req, res){
 
-	User.fetch(function(err, users){
+	User.fetch(function(err, user){
 		if (err) { console.log(err) }
 		res.render('userlist', {
 			title: '用户列表页',
-			users: users
+			users: user
 		})
 	})
 	
 })
 
+// signin
+app.post('/user/signin', function(req, res){
+	var _user = req.body.user
+	var name = _user.name
+	var password = _user.password
+
+	User.findOne({name: name}, function(err, user){
+		if (err) console.log(err)
+		if (!user) {
+			return res.redirect('/')
+		}
+		user.comparePassword(password, function(err, isMatch){
+			if (err) { console.log(err) }
+			if (isMatch) {
+				console.log('password is matched')
+				return res.redirect('/')
+			}
+			else {
+				console.log("password is not matched")
+				return res.redirect('/')
+			}
+		})
+	})
+})
 
 //detail page
 app.get('/movie/:id', function(req, res){
@@ -124,7 +148,7 @@ app.get('/admin/update/:id', function(req, res){
 })
 //admin post movie
 app.post('/admin/movie/new', function(req, res){
-	console.log(req.body)
+	//console.log(req.body)
 	var id = req.body.movie._id
 	var movieObj = req.body.movie
 	var _movie
