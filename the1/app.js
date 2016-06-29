@@ -13,7 +13,7 @@ var dburl = 'mongodb://localhost/movieweb'
 
 mongoose.connect(dburl)
 
-app.set('views', 'the1/views/pages')
+app.set('views', 'the1/app/views/pages')
 app.set('view engine', 'jade')
 //app.use(express.bodyParser())
 app.use(bodyParser.urlencoded({extended:true}))
