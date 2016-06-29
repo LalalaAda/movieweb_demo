@@ -1,6 +1,17 @@
 var User = require('../models/user')
 
 //signup
+exports.showSignin = function(req, res){
+	res.render('signin', {
+		title: '用户登录页',
+	})
+}
+exports.showSignup = function(req, res){
+	res.render('signup', {
+		title: '用户注册页'
+	})
+}
+
 exports.signup = function(req, res){
 	var _user = req.body.user
 	//  /user/signup/1111?userid=1112
