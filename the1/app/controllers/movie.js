@@ -1,5 +1,8 @@
 var Movie = require('../models/movie')
+var Comment = require('../models/comment')
 var _ =require('underscore')
+
+
 //detail page
 exports.detail = function(req, res){
 	var id = req.params.id
@@ -10,12 +13,19 @@ exports.detail = function(req, res){
 			res.render('404', {
 				title: '404',
 			})
-		}else{
-			res.render('detail', {
-				title: '详情页'+movie.title,
-				movie: movie
-			})
 		}
+		Comment
+			.find({movie: id})
+			.populate('from', 'name')//填充comment中的from字段添加至name属性
+			.populate('reply.from reply.to', 'name')
+			.exec(function(err, comments){
+				console.log(comments)
+				res.render('detail', {
+					title: '详情页'+movie.title,
+					movie: movie,
+					comments: comments
+				})
+			})	
 	})
 }
 

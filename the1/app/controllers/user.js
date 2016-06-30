@@ -29,7 +29,9 @@ exports.signup = function(req, res){
 			var user = new User(_user)
 			user.save(function(err, user){
 				if (err) console.log(err)
-				res.redirect('/admin/userlist')
+				//注册成功直接登录
+				req.session.user = user
+				res.redirect('/')
 			})
 		}
 	})
@@ -45,6 +47,21 @@ exports.list = function(req, res){
 		})
 	})
 	
+}
+//list delete user
+exports.del = function(req, res){
+	var id = req.query.id
+
+	if (id) {
+		User.remove({_id:id}, function(err, user){
+			if (err) {
+				console.log(err)
+			}
+			else{
+				res.json({success:1})
+			}
+		})
+	}
 }
 
 // signin
@@ -76,4 +93,21 @@ exports.signin = function(req, res){
 exports.logout = function(req, res){
 	delete req.session.user
 	return res.redirect('/')
+}
+
+// midware for user
+exports.signinRequired = function(req, res, next){
+	var _user = req.session.user
+	if (!_user) {
+		return res.redirect('/signin')
+	}
+	next()
+}
+exports.adminRequired = function(req, res, next){
+	var _user = req.session.user
+	//之前有写role  default值为0 所以下面只要一个判断
+	if (_user.role <= 10) {
+		return res.redirect('/signin')
+	}
+	next()
 }

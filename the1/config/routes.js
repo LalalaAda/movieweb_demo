@@ -1,6 +1,7 @@
 var Index = require('../app/controllers/index')
 var Movie = require('../app/controllers/movie')
 var User = require('../app/controllers/user')
+var Comment = require('../app/controllers/comment')
 
 
 module.exports = function(app){
@@ -18,19 +19,22 @@ module.exports = function(app){
 
 	//User
 	app.post('/user/signup', User.signup)
-	app.get('/admin/userlist', User.list)
+	app.get('/admin/userlist', User.signinRequired, User.adminRequired, User.list)
+	app.delete('/admin/user/list', User.signinRequired, User.adminRequired, User.del)
 	app.post('/user/signin', User.signin)
 	app.get('/signin', User.showSignin)
 	app.get('/signup', User.showSignup)
-
 	app.get('/logout', User.logout)
 
 	//Movie
 	app.get('/movie/:id', Movie.detail)
-	app.get('/admin/movie', Movie.new)
-	app.get('/admin/update/:id', Movie.update)
-	app.post('/admin/movie/new', Movie.save)
-	app.get('/admin/list', Movie.list)
-	app.delete('/admin/list', Movie.del)
+	app.get('/admin/movie/new', Movie.new)
+	app.get('/admin/movie/update/:id', Movie.update)
+	app.post('/admin/movie', Movie.save)
+	app.get('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.list)
+	app.delete('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.del)
+
+	//Comment
+	app.post('/user/comment', User.signinRequired, Comment.save)
 
 }
