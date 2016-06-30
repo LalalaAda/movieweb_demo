@@ -41,7 +41,7 @@ exports.new = function(req, res){
 			poster: '',
 			flash: '',
 			summary: '',
-			language: ''
+			language: '',
 		}
 	})
 }
