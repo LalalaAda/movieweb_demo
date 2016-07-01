@@ -124,3 +124,31 @@ grunt
 
 	var logger = require('morgan')
 ------------------------------------------------------------------
+#13 豆瓣v2的API
+	关于电影的信息api
+	是https://api.douban.com/v2/movie/subject/ + id
+	传递回来的是jsonp数据
+	用ajax接收解析
+	$.ajax({
+		url: 'https://api.douban.com/v2/movie/subject/' + id,
+		cache: true,
+		type: 'get',
+		dataType: 'jsonp',
+		crossDomain: true,
+		jsonp: 'callback',
+		success: function(data) {
+			//在这里解析数据
+		}
+	})
+------------------------------------------------------------------
+#14 substring() slice()方法
+	前者两个参数 非负  1.截取字符串起始位置2.起始位置加1
+	后者两个参数 可负  1.起始位置2.结束位置
+	范例
+	    var str = "abcd"
+	    str1 = str.substring(0,2)    ===> "ab"
+	    str2 = str.slice(-2,-1)  ===> "c"
+	注意 slice()方法的参数位置始终是start,end  所以（-1，-2）是错误的
+	截取不到任何字符，因为是从-1 即倒数第一个开始向后截取，自然没有字符
+	可以截取
+------------------------------------------------------------------
