@@ -152,3 +152,16 @@ grunt
 	截取不到任何字符，因为是从-1 即倒数第一个开始向后截取，自然没有字符
 	可以截取
 ------------------------------------------------------------------
+#15 mongodb 查询数组的方法
+	可以把数组当作成键值对
+	例子：
+	db.food.insert({“_id”:1, “fruit”:["apple","banana","peach"]})
+	db.food.insert({“_id”:2, “fruit”:["apple","kumquat","orange"]})
+
+	db.food.find({"fruit": "apple"})
+	{ “_id” : 1, “fruit” : [ "apple", "banana", "peach" ] }
+	{ “_id” : 2, “fruit” : [ "apple","kumquat","orange" ] }
+
+	删除的话用
+	db.food.update({_id:id}, {$pull:{"fruit":"apple"}})
+------------------------------------------------------------------

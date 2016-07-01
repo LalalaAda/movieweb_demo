@@ -58,7 +58,6 @@ exports.update = function(req, res){
 }
 //admin post movie
 exports.save = function(req, res){
-	//console.log(req.body)
 	var id = req.body.movie._id
 	var movieObj = req.body.movie
 	var _movie
@@ -67,6 +66,21 @@ exports.save = function(req, res){
 			if(err){
 				console.log(err)
 			}
+			if (movieObj.category != movie.category) {
+				Category.findOne({movies:id}, function(err, category){
+					if (err) { console.log(err) }
+					category.movies.pull(id)
+					category.save(function(err, category){
+						if (err) { console.log(err) }
+						Category.findById(movieObj.category, function(err, category) {
+							category.movies.push(movie._id)
+							category.save(function(err, category){
+								if (err) { console.log(err) }
+							})
+						})
+					})
+				})
+			}
 			//  _.extend underscore框架封装的方法 将第二个参数的属性
 			//  按顺序复制到第一个参数中，若存在相同属性则覆盖
 			_movie = _.extend(movie, movieObj)
@@ -74,23 +88,47 @@ exports.save = function(req, res){
 				if(err){
 					console.log(err)
 				}
-
 				res.redirect('/movie/'+movie._id)
 			})
 		})
 	}else{
 		_movie = new Movie(movieObj)
-		var categoryId = _movie.category
+		var categoryId = movieObj.category
+		var categoryName = movieObj.categoryName
+		//优先存储categoryId  即选择的分类不是填写的分类
 		_movie.save(function(err, movie){
 			if (err) {
 				console.log(err)
 			}
-			Category.findById(categoryId, function(err, category) {
-				category.movies.push(_movie._id)
-				category.save(function(err, category){
-					res.redirect('/movie/'+movie._id)
+			if (categoryId) {	
+				Category.findById(categoryId, function(err, category) {
+					category.movies.push(movie._id)
+					category.save(function(err, category){
+						res.redirect('/movie/'+movie._id)
+					})
 				})
-			})
+			}
+			else if (categoryName) {
+				Category.findOne({name:categoryName}, function(err, category) {
+					if (err) { console.log(err) }
+					if (category) {
+						category.movies.push(movie._id)
+						category.save(function(err, category){
+							res.redirect('/movie/' + movie._id)
+						})
+					}
+					else {
+						var newcategory = new Category({
+							name: categoryName,
+							movies: [movie._id]
+						})
+						newcategory.save(function(err, category){
+							if (err) { console.log(err) }
+							res.redirect('/movie/' + movie._id)
+						})
+					}
+				})
+			}
 		})
 	}
 }
