@@ -43,4 +43,7 @@ module.exports = function(app){
 	app.post('/admin/category/save', User.signinRequired, Category.save)
 	app.get('/admin/category/list', User.signinRequired, Category.list)
 
+	//results
+	app.get('/results', Index.search)
+
 }

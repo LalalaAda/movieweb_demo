@@ -165,3 +165,18 @@ grunt
 	删除的话用
 	db.food.update({_id:id}, {$pull:{"fruit":"apple"}})
 ------------------------------------------------------------------
+#16 在jade中 写内部js
+	- for (var i = 0; i < totalPage; i++){
+		- if (currentPage == (i + 1)) {
+			li.active
+				span #{currentPage}
+		- }
+		- else {
+			li
+				a(href='results?#{query}&p=#{i}') #{i + 1}
+		- }
+	- }
+	在js代码前加 - 
+
+	Math.ceil()方法向上取整 意思就是0.1为1 
+-------------------------------------------------------------------

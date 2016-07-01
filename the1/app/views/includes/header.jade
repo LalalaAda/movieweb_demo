@@ -1,14 +1,21 @@
 .container
 	.row
-		.page-header
+		.page-header.clearfix
 			h1= title
-			small 个人喜爱系列
+			.col-md-4
+				small 个人喜爱系列
+			.col-md-8
+				form(method="GET", action='/results')
+					.input-group.col-sm-4.pull-right
+						input.form-control(type="text", name="q")
+						span.input-group-btn
+							button.btn.btn-default(type="submit") 搜索
 .navbar.navbar-default.navbar-fixed-bottom
 	.container
 		.navbar-header
 			a.navbar-brand(href="/")
 				img.img-circle(src="/img/logo.png", style="width:50px;")
-			p.navbar-text(style="font-size: xx-large;")爱电影
+			p.navbar-text(style="font-size: xx-large;") 爱电影
 		if user
 			p.navbar-text.navbar-right(style="font-size: xx-large;")
 				span 欢迎您，#{user.name}
