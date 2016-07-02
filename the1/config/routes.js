@@ -31,7 +31,7 @@ module.exports = function(app){
 	app.get('/movie/:id', Movie.detail)
 	app.get('/admin/movie/new', Movie.new)
 	app.get('/admin/movie/update/:id', Movie.update)
-	app.post('/admin/movie/save', Movie.save)
+	app.post('/admin/movie/save', Movie.savePoster, Movie.save)
 	app.get('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.list)
 	app.delete('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.del)
 

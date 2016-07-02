@@ -180,3 +180,16 @@ grunt
 
 	Math.ceil()方法向上取整 意思就是0.1为1 
 -------------------------------------------------------------------
+#17 express 4.x以后可以使用 connect-multiparty 中间件来获取 req.files
+	npm install connect-multiparty --save
+
+	var multipart = require('connect-multiparty');
+	app.use(multipart());
+
+	mongodb中字段值增加 &inc
+	修改器$inc可以对文档的某个值为数字型（只能为满足要求的数字）的键进行
+	增减的操作。
+	Movie.update({_id: id}, {$inc: {pv: 1}}, function(err){
+		if (err) { console.log(err) }
+	})
+-------------------------------------------------------------------

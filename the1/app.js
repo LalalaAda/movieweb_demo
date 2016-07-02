@@ -1,4 +1,5 @@
 var express = require('express')
+var multipart = require('connect-multiparty')
 var logger = require('morgan')
 var session = require('express-session')
 var cookieParser = require('cookie-parser')
@@ -29,6 +30,7 @@ app.use(session({
 		collection: 'sessions'
 	})
 }))
+app.use(multipart())
 
 if ("development" === app.get('env')) {
 	app.set('showStackError', true)
