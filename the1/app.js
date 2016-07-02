@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser')
 var serveStatic = require('serve-static')
 var bodyParser = require('body-parser')
 var path = require('path')
+var fs = require('fs')
 var mongoose = require('mongoose')
 var mongoStore = require('connect-mongo')(session)
 var port = process.env.PORT || 3000
@@ -13,6 +14,29 @@ var app = express()
 var dburl = 'mongodb://localhost/movieweb'
 
 mongoose.connect(dburl)
+
+//models loading
+var models_path = __dirname + '/app/models'
+var walk = function(path){
+	fs
+		.readdirSync(path)
+		.forEach(function(file) {
+			var newPath = path + '/' + file
+			var stat = fs.statSync(newPath)
+
+			if (stat.isFile()) {
+				if (/(.*)\.(js|coffee)/.test(file)) {
+					require(newPath)
+				}
+			}
+			else if (stat.isDirectory()) {
+				walk(newPath)
+			}
+		})
+}
+walk(models_path)
+
+
 
 app.set('views', 'the1/app/views/pages')
 app.set('view engine', 'jade')

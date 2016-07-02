@@ -193,3 +193,29 @@ grunt
 		if (err) { console.log(err) }
 	})
 -------------------------------------------------------------------
+#18  mocha 单元测试模块
+	npm install grunt-mocha-test  --save
+	should 模块需要安装
+	npm install should
+
+	app.js中有个函数用来遍历所有的模块
+	var models_path = __dirname + '/app/models'
+	var walk = function(path){
+		fs
+			.readdirSync(path)
+			.forEach(function(file) {
+				var newPath = path + '/' + file
+				var stat = fs.statSync(newPath)
+
+				if (stat.isFile()) {
+					if (/(.*)\.(js|coffee)/.test(file)) {
+						require(newPath)
+					}
+				}
+				else if (stat.isDirectory()) {
+					walk(newPath)
+				}
+			})
+	}
+	walk(models_path)
+-------------------------------------------------------------------
