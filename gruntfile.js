@@ -14,6 +14,50 @@ module.exports = function(grunt){
 				options: {
 					livereload: true
 				}
+			},
+			uglify: {
+				files: ['public/**/*.js'],
+				tasks: ['jshint'],
+				options: {
+					livereload: true
+				}
+			},
+			styles: {
+				files: ['public/**/*.less'],
+				tasks: ['less'],
+				options: {
+					nospawn: true
+				}
+			}
+		},
+
+		jshint: {
+			options: {
+				jshintrc: '.jshintrc',
+				ignores: ['public/libs/**/*.js']
+			},
+			all: ['public/js/*.js', 'test/**/*.js', 'app/**/*.js']
+		},
+		less: {
+			development: {
+				options: {
+					compress: true,
+					yuicompress: true,
+					optimization: 2
+				},
+				files: {
+					'public/build/index.css': 'public/less/index.less'
+				}
+			}
+		},
+		uglify: {
+			development: {
+				files: {
+					'public/build/admin.min.js': 'public/js/admin.js',
+					'public/build/detail.min.js': [
+						'public/js/detail.js'
+					]
+				}
 			}
 		},
 
@@ -44,7 +88,8 @@ module.exports = function(grunt){
 		},
 
 		concurrent: {
-			tasks: ['nodemon', 'watch'],
+			tasks: ['nodemon', 'watch', 'less', 'uglify', 'jshint'],
+			//tasks: ['nodemon', 'watch'],
 			options: {
 				logConcurrentOutput: true
 			}
@@ -55,6 +100,10 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-nodemon')
 	grunt.loadNpmTasks('grunt-concurrent')
 	grunt.loadNpmTasks('grunt-mocha-test')
+
+	grunt.loadNpmTasks('grunt-contrib-less')
+	grunt.loadNpmTasks('grunt-contrib-uglify')
+	grunt.loadNpmTasks('grunt-contrib-jshint')
 
 	grunt.option('force', true)
 	grunt.registerTask('default', ['concurrent'])

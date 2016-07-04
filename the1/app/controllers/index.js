@@ -16,7 +16,7 @@ exports.index = function(req, res){
 		})
 	
 }
-//index search
+//index search 根据分类查找，根据关键词查找
 exports.search = function(req, res){
 	var catId = req.query.cat
 	var page = parseInt(req.query.p, 10) || 0
