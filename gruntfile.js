@@ -10,7 +10,7 @@ module.exports = function(grunt){
 			},
 			js: {
 				files: ['public/js/**', 'models/**/*.js', 'schemas/**/*.js'],
-				//tasks: ['jshint']
+				tasks: ['jshint'],
 				options: {
 					livereload: true
 				}
@@ -88,8 +88,8 @@ module.exports = function(grunt){
 		},
 
 		concurrent: {
-			tasks: ['nodemon', 'watch', 'less', 'uglify', 'jshint'],
-			//tasks: ['nodemon', 'watch'],
+			//tasks: ['nodemon', 'watch', 'less', 'uglify', 'jshint'],
+			tasks: ['nodemon', 'watch'],
 			options: {
 				logConcurrentOutput: true
 			}
@@ -108,4 +108,5 @@ module.exports = function(grunt){
 	grunt.option('force', true)
 	grunt.registerTask('default', ['concurrent'])
 	grunt.registerTask('test', ['mochaTest'])
+	
 }

@@ -17,7 +17,7 @@ grunt
 		set PORT=1234
 		node app.js
 -----------------------------------------------------------------
-#2 这个项目用到的库
+#2 这个项目用到的库 
 	node install express jade moment mogoose
 	node install bower -g
 	bower install bootstrap
@@ -219,3 +219,12 @@ grunt
 	}
 	walk(models_path)
 -------------------------------------------------------------------
+#19   解决grunt报错
+	主要是今天去面试，然而打开的时候报错，尴尬
+	解决的方法是安装coffee-script
+	已经写入了package.json  直接npm install 就行了
+	具体原因不明，可能是jshint模块需要这个coffee-script
+	这个项目至此为止，等到工作了再更新，目前应该能撑过
+	express 4.x
+	另 npm可以换淘宝源 速度快更新也还行 百度cnpm
+------------------------------------------------------------------

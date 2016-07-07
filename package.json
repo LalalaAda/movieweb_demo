@@ -5,7 +5,6 @@
   "main": "gruntfile.js",
   "dependencies": {
     "bcryptjs": "^2.3.0",
-    "should": "^9.0.2",
     "body-parser": "^1.15.1",
     "connect-mongo": "^1.2.1",
     "connect-multiparty": "^2.0.0",
@@ -24,6 +23,7 @@
     "morgan": "^1.7.0",
     "pug": "^2.0.0-beta3",
     "serve-static": "^1.11.1",
+    "should": "^9.0.2",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
