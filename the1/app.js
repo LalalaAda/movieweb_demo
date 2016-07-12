@@ -11,7 +11,7 @@ var mongoose = require('mongoose')
 var mongoStore = require('connect-mongo')(session)
 var port = process.env.PORT || 3000
 var app = express()
-var dburl = 'mongodb://localhost/movieweb'
+var dburl = 'mongodb://127.0.0.1/movieweb'
 
 mongoose.connect(dburl)
 
